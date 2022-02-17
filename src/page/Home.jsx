@@ -5,8 +5,20 @@ import Nav from "../components/Nav"
 
 const Home = ()=>{
     const {data,loading,error} = useFetch('http://localhost:8080/api/productos')
+    
+    const saveData = async(dataForm)=>{
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataForm)
+        };
+        const response = await fetch('http://localhost:8080/api/carrito', requestOptions);
+        const data = await response.json();
+        console.log(data)
+   }
     const add = (item)=>{
         console.log(item)
+        saveData({producto : item})
     }
     return(
         <>
