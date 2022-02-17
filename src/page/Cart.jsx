@@ -1,6 +1,7 @@
 
 import Nav from "../components/Nav"
 import { useFetch } from "../hooks/useFetch";
+import React, { useEffect, useState } from "react";
 
 const products = [
     {
@@ -27,11 +28,25 @@ const products = [
   ]
 const Cart = ()=>{
     const {data,loading,error} = useFetch('http://localhost:8080/api/carrito')
+    const [dataProducto, setDataProducto] = useState([]);
+    const deleteCart = async(id)=>{
+        const requestOptions = {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        const response = await fetch('http://localhost:8080/api/carrito/' + id, requestOptions);
+        const res = await response.json();
+        
+        let filter = data.filter(elm => elm.id !== id)
+        console.log(filter)
+        setDataProducto(filter)
+   }
+    useEffect(() => {
+        setDataProducto(data)
+    }, [data]);
     return(
         <>
             <Nav />
-            
-          
               <div className=" max-auto">
                 <div className="h-full flex flex-col bg-white shadow-xl ">
                   <div className="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
@@ -43,7 +58,7 @@ const Cart = ()=>{
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
-                          {data.map((product) => (
+                          {dataProducto.map((product) => (
                             <li key={product.id} className="py-6 flex">
                               <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                 <img
@@ -62,10 +77,12 @@ const Cart = ()=>{
                                   </div>
                                 </div>
                                 <div className="flex-1 flex items-end justify-between text-sm">
-                                  <p className="text-gray-500">Qty {product.producto.stock}</p>
+                                  <p className="text-gray-500">CANTIDAD {product.producto.stock}</p>
 
                                   <div className="flex">
-                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button type="button"
+                                    onClick={()=> deleteCart(product.id)}
+                                    className="font-medium text-indigo-600 hover:text-indigo-500">
                                       Remove
                                     </button>
                                   </div>

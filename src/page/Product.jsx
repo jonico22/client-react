@@ -26,7 +26,6 @@ const Product = () => {
             <div className="main w-max m-auto mt-10">
                <Form save={saveData} />
             </div>
-
             <TablePro data={data} />
         </>
     )
