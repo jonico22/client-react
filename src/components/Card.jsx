@@ -1,6 +1,6 @@
 import react from "react";
 
-const Card = ({foto,nombre,descripcion,precio}) => {
+const Card = ({foto,nombre,descripcion,precio , getAdd}) => {
     return (
         <div className="py-6">
             <div className="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
@@ -12,7 +12,7 @@ const Card = ({foto,nombre,descripcion,precio}) => {
                    
                     <div className="flex item-center justify-between mt-3">
                         <h1 className="text-gray-700 font-bold text-xl">${precio}</h1>
-                        <button className="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded">Add to Card</button>
+                        <button className="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" onClick={ getAdd}>Add to Card</button>
                     </div>
                 </div>
             </div>
