@@ -6,32 +6,36 @@ import { Link } from "react-router-dom";
 
 const Product = () => {
     const [dataProducto, setDataProducto] = useState([]);
-   const {data,loading,error} = useFetch('http://localhost:8080/api/productos')
-   const deleteItem = async(id)=>{
+    const { data, loading, error } = useFetch('http://localhost:8080/api/productos')
+    const deleteItem = async (id) => {
         const requestOptions = {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' }
         };
-        const response = await fetch('http://localhost:8080/api/productos/' + id, requestOptions);
-        const res = await response.json();
-        console.log(res)
-        let filter = data.filter(elm => elm.id !== id)
-        setDataProducto(filter)
+        try {
+            const response = await fetch('http://localhost:8080/api/productos/' + id, requestOptions);
+            const res = await response.json();
+            if (res.status) {
+                let filter = data.filter(elm => elm.id !== id)
+                setDataProducto(filter)
+            } else {
+                alert(res.descripcion)
+            }
+
+        } catch (error) {
+            console.log(error, 'errpr')
+        }
+
     }
 
 
-   const deleteProd = (id)=>{
-       console.log(id) 
-       deleteItem(id)
-   }
-  
-   const editProduct = (id)=>{
+    const deleteProd = (id) => {
+        deleteItem(id)
+    }
 
-    } 
-
-   useEffect(() => {
-    setDataProducto(data)
-   }, [data]);
+    useEffect(() => {
+        setDataProducto(data)
+    }, [data]);
 
     return (
         <>

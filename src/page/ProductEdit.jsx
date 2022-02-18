@@ -15,9 +15,13 @@ const Product = () => {
             body: JSON.stringify(dataForm)
         };
         const response = await fetch('http://localhost:8080/api/productos/'+id, requestOptions);
-        const data = await response.json();
+        const res = await response.json();
         console.log(data)
-        navigate("/productos");
+        if (res.status) {
+            navigate("/productos");
+        } else {
+            alert(res.descripcion)
+        }
    }
 
    useEffect(() => {
