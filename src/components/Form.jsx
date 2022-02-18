@@ -1,18 +1,16 @@
-import react from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-//import { useFetch } from "../hooks/useFetch";
 
-const Form = ({save}) => {
-    //const {data,loading,error} = useFetch('https://localhost:4000')
+const Form = ({save, defaultData=[] }) => {
     const formik = useFormik({
         initialValues: {
-            nombre: '',
-            descripcion: '',
-            codigo: '',
-            foto: '',
-            precio: '',
-            stock: '',
+            nombre: defaultData.length === 0 ? '' : defaultData.nombre,
+            descripcion: defaultData.length === 0 ? '' : defaultData.descripcion,
+            codigo: defaultData.length === 0 ? '' : defaultData.codigo,
+            foto: defaultData.length === 0 ? '' : defaultData.foto,
+            precio: defaultData.length === 0 ? '' : defaultData.precio,
+            stock: defaultData.length === 0 ? '' : defaultData.stock,
         },
         validationSchema: Yup.object({
             nombre: Yup.string()
@@ -23,11 +21,14 @@ const Form = ({save}) => {
             save(valores)
         },
     });
+    useEffect(() => {
+        console.log(defaultData)
+       }, [defaultData]);
     return (
         <>
             <div className="register">
                 <form onSubmit={formik.handleSubmit}>
-                    <h2 className="text-2xl mb-6">registrar producto</h2>
+                    <h2 className="text-2xl mb-6"> PRODUCTO</h2>
                     <div className="display_name flex border rounded text-gray-500 mb-4">
                         <input className="outline-none px-4 h-full py-2 text-lg"
                             name="nombre"

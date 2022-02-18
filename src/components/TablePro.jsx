@@ -1,4 +1,6 @@
-export default function TablePro({data}) {
+import { Link } from "react-router-dom";
+
+export default function TablePro({data,editProduct,deleteProduct}) {
     return (
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -52,12 +54,11 @@ export default function TablePro({data}) {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.codigo}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                          Edit
-                        </a>
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        
+                        <Link to={`/productos/edit/${item.id}`} className="text-indigo-600 pr-5 hover:text-indigo-900" >EDIT</Link>
+                        <button onClick={ ()=> deleteProduct(item.id)} className="text-indigo-600 hover:text-indigo-900">
                           Delete
-                        </a>
+                        </button>
                       </td>
                     </tr>
                   ))}

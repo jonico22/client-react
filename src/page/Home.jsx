@@ -17,7 +17,6 @@ const Home = ()=>{
         console.log(data)
    }
     const add = (item)=>{
-        console.log(item)
         saveData({producto : item})
     }
     return(

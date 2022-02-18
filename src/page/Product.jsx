@@ -1,32 +1,46 @@
-
-import Form from '../components/Form'
+import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav"
 import TablePro from "../components/TablePro"
 import { useFetch } from "../hooks/useFetch";
-const Product = () => {
+import { Link } from "react-router-dom";
 
+const Product = () => {
+    const [dataProducto, setDataProducto] = useState([]);
    const {data,loading,error} = useFetch('http://localhost:8080/api/productos')
-   const saveData = async(dataForm)=>{
+   const deleteItem = async(id)=>{
         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataForm)
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' }
         };
-        const response = await fetch('http://localhost:8080/api/productos', requestOptions);
-        const data = await response.json();
-        console.log(data)
+        const response = await fetch('http://localhost:8080/api/productos/' + id, requestOptions);
+        const res = await response.json();
+        console.log(res)
+        let filter = data.filter(elm => elm.id !== id)
+        setDataProducto(filter)
+    }
+
+
+   const deleteProd = (id)=>{
+       console.log(id) 
+       deleteItem(id)
    }
+  
+   const editProduct = (id)=>{
+
+    } 
+
+   useEffect(() => {
+    setDataProducto(data)
+   }, [data]);
 
     return (
         <>
             <Nav />
-            <header>
+            <header className="py-10 pl-2 bold">
                 <h1>MANTENIMIENTO DE PRODUCTOS</h1>
             </header>
-            <div className="main w-max m-auto mt-10">
-               <Form save={saveData} />
-            </div>
-            <TablePro data={data} />
+            <Link to="/productos/nuevo" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"> NUEVO PRODUCTO</Link>
+            <TablePro data={dataProducto} deleteProduct={deleteProd} />
         </>
     )
 }
