@@ -12,7 +12,7 @@ const Product = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dataForm)
         };
-        const response = await fetch('http://localhost:8080/api/productos', requestOptions);
+        const response = await fetch('https://plastic-palm-capricorn.glitch.me/api/productos', requestOptions);
         const data = await response.json();
         console.log(data)
         navigate("/productos");

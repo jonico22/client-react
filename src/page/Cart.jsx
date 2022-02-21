@@ -4,14 +4,14 @@ import { useFetch } from "../hooks/useFetch";
 import React, { useEffect, useState } from "react";
 
 const Cart = ()=>{
-    const {data,loading,error} = useFetch('http://localhost:8080/api/carrito')
+    const {data,loading,error} = useFetch('https://plastic-palm-capricorn.glitch.me/api/carrito')
     const [dataProducto, setDataProducto] = useState([]);
     const deleteCart = async(id)=>{
         const requestOptions = {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' }
         };
-        const response = await fetch('http://localhost:8080/api/carrito/' + id, requestOptions);
+        const response = await fetch('https://plastic-palm-capricorn.glitch.me/api/carrito/' + id, requestOptions);
         const res = await response.json();
         console.log(res)
         let filter = data.filter(elm => elm.id !== id)

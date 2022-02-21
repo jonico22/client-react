@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 
 const Product = () => {
     const [dataProducto, setDataProducto] = useState([]);
-    const { data, loading, error } = useFetch('http://localhost:8080/api/productos')
+    const { data, loading, error } = useFetch('https://plastic-palm-capricorn.glitch.me/api/productos')
     const deleteItem = async (id) => {
         const requestOptions = {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' }
         };
         try {
-            const response = await fetch('http://localhost:8080/api/productos/' + id, requestOptions);
+            const response = await fetch('https://plastic-palm-capricorn.glitch.me/api/productos/' + id, requestOptions);
             const res = await response.json();
             if (res.status) {
                 let filter = data.filter(elm => elm.id !== id)
