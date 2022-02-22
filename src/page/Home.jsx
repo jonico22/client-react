@@ -17,7 +17,8 @@ const Home = ()=>{
         console.log(data)
    }
     const add = (item)=>{
-        saveData({producto : item})
+        console.log(item)
+        saveData({producto : [item]})
     }
     return(
         <>

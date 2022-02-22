@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route,HashRouter } from "react-router-dom"
 import Home from './page/Home'
 import Product from './page/Product'
 import ProductEdit from './page/ProductEdit'
