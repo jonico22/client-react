@@ -2,10 +2,11 @@
 import Card from "../components/Card";
 import { useFetch } from "../hooks/useFetch";
 import Nav from "../components/Nav"
+import { useNavigate } from "react-router-dom";
 
 const Home = ()=>{
     const {data,loading,error} = useFetch('https://plastic-palm-capricorn.glitch.me/api/productos')
-    
+    let navigate = useNavigate();
     const saveData = async(dataForm)=>{
         const requestOptions = {
             method: 'POST',
@@ -15,6 +16,7 @@ const Home = ()=>{
         const response = await fetch('https://plastic-palm-capricorn.glitch.me/api/carrito', requestOptions);
         const data = await response.json();
         console.log(data)
+        navigate("/carrito");
    }
     const add = (item)=>{
         console.log(item)

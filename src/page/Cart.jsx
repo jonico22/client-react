@@ -3,9 +3,11 @@ import Nav from "../components/Nav"
 import { useFetch } from "../hooks/useFetch";
 import React, { useEffect, useState } from "react";
 
+
 const Cart = ()=>{
     const {data,loading,error} = useFetch('https://plastic-palm-capricorn.glitch.me/api/carrito')
     const [dataProducto, setDataProducto] = useState([]);
+   
     const deleteCart = async(id)=>{
         const requestOptions = {
             method: 'delete',
